@@ -222,7 +222,7 @@ void plane_t::print() const{
 polygon_t::polygon_t(){
 
 }
-                                  // empty polygon
+
 polygon_t::polygon_t(std::vector<point_t> vertices){
 	this -> vertices = vertices;
 
