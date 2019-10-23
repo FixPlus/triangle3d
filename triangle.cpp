@@ -1,5 +1,4 @@
 #include "lingeo3D.h"
-#include "lingeo3d.cpp"
 #include <iostream>
 #include <vector>
 #include <unordered_map>
@@ -88,7 +87,7 @@ public:
 			}			
 		}
 
-		T cube_size = 0.0;
+		T cube_size = 0.0;                   // cube size must be not less than maximum linear size of triangle appeared in polys to fit all of them
 		
 		if(x_size_max >= y_size_max && x_size_max >= z_size_max)
 			cube_size = x_size_max;
@@ -139,7 +138,9 @@ int main(){
 
 
 #ifndef WITH_SORTED
+
 	std::vector<cube_t<float>> cubes;
+
 #endif
 
 	for(int i = 0; i < tri_n; i++){
@@ -154,13 +155,19 @@ int main(){
 			tri.add(point_t<float>{a, b, c});
 		}
 		triangles.insert(triangles.end(), tri);
+
 #ifndef WITH_SORTED
+
 		cubes.insert(cubes.end(), {triangles[i], 0.0});
+
 #endif
+
 	}
 
 #ifdef WITH_SORTED
+
 	sorted_cubes<float> s_cubes{triangles};
+
 #endif
 
 	bool* intersected = new bool[tri_n];
@@ -263,6 +270,13 @@ int main(){
 
 #endif
 
+#ifdef TRI_LOGGING
+
+	delta_time = time(nullptr) - delta_time;
+	std::cout << "Time elapsed:" << delta_time << std::endl; 
+#endif
+
+
 #ifndef TRI_LOGGING
 
 	for (int i = 0; i < tri_n; i++)
@@ -274,11 +288,6 @@ int main(){
 
 	delete[] intersected;
 
-#ifdef TRI_LOGGING
-
-	delta_time = time(nullptr) - delta_time;
-	std::cout << "Time elapsed:" << delta_time << std::endl; 
-#endif
 
 	return 0;
 }

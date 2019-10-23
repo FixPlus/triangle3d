@@ -3,7 +3,6 @@
 #include <cstdlib>
 #include <ctime>
 #include "lingeo3D.h"
-#include "lingeo3d.cpp"
 
 using namespace lingeo3D;
 
@@ -14,6 +13,7 @@ using namespace lingeo3D;
 	  and are not bigger than cube (abs_size, abs_size, abs_size)
 
 */
+
 template<typename T>
 T random_num_in_bounds(T lower_bound, T upper_bound){
 	return lower_bound + (T)std::rand()/(const T)RAND_MAX * (upper_bound - lower_bound);
